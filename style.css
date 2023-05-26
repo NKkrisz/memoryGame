@@ -1,0 +1,15 @@
+@keyframes flip{
+    50%{
+        transform: rotate3d(0, 1, 0, 180deg);
+    }
+}
+
+.card:focus{
+    animation-name: flip;
+    animation-duration: 0.75s;
+    outline: none;
+}
+
+img {
+    pointer-events: none;
+}
