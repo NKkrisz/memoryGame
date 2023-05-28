@@ -1,4 +1,6 @@
 const cardsContainer = document.querySelector("#cards");
+const inputRange = document.querySelector("#cardPairs");
+const inputRangeIndicator = document.querySelector("#cardPairsNumber");
 
 const cards = {
     "React" : "./img/icons8-react.svg",
@@ -19,8 +21,18 @@ const cards = {
     "Unity" : "./img/icons8-unity.svg"
 }
 
+inputRange.setAttribute("min", "1");
+inputRange.setAttribute("max", Object.keys(cards).length);
+inputRangeIndicator.value = inputRange.value;
+
+function indicate(){
+    inputRangeIndicator.value = inputRange.value;
+}
+
 function randomize(){
-    let cardPairs = 6;
+    cardsContainer.innerHTML = "";
+
+    let cardPairs = inputRange.value;
     let alreadyChosen = [];
     let rnd;
     let randomizeList = [];
@@ -34,8 +46,8 @@ function randomize(){
             }
         }
 
-        randomizeList.push(`<button onclick=check(this) class="game${Object.keys(cards)[rnd]} card select-none cursor-pointer bg-slate-400 border border-slate-950 md:w-32 md:h-32 w-20 h-20 lg:w-44 lg:h-44 p-2 text-black rounded-xl flex justify-center"><img src="${cards[Object.keys(cards)[rnd]]}" alt=""></button>`)
-        randomizeList.push(`<button onclick=check(this) class="game${Object.keys(cards)[rnd]} card select-none cursor-pointer bg-slate-400 border border-slate-950 md:w-32 md:h-32 w-20 h-20 lg:w-44 lg:h-44 p-2 text-black rounded-xl flex justify-center text-center"><p>${Object.keys(cards)[rnd]}</p></button>`)
+        randomizeList.push(`<button onclick=check(this) style="transform-style: preserve-3d;" class="game${Object.keys(cards)[rnd]} card select-none cursor-pointer bg-slate-400 border border-slate-950 md:w-32 md:h-32 w-20 h-20 lg:w-44 lg:h-44 p-2 text-black rounded-xl flex justify-center"><img src="${cards[Object.keys(cards)[rnd]]}" alt=""><div style="transform: rotateY(180deg) translateZ(1px);" class="flex top-0 absolute w-full h-full bg-slate-400 rounded-xl"></div></button>`)
+        randomizeList.push(`<button onclick=check(this) style="transform-style: preserve-3d;" class="game${Object.keys(cards)[rnd]} card select-none cursor-pointer bg-slate-400 border border-slate-950 md:w-32 md:h-32 w-20 h-20 lg:w-44 lg:h-44 p-2 text-black rounded-xl flex justify-center text-center items-center"><p class="sm:text-xs">${Object.keys(cards)[rnd]}</p><div style="transform: rotateY(180deg) translateZ(1px);" class="flex top-0 absolute w-full h-full bg-slate-400 rounded-xl"></div></button>`)
     }
     
     randomizeList.sort(() => Math.random() - 0.5);
@@ -49,16 +61,26 @@ function randomize(){
 
 randomize()
 
-let flipped = [];
+let flipped = "";
 
 function check(obj){
-    flipped.push(obj.classList[0])
-    if(flipped.length === 2){
-        if(flipped[0]===flipped[1]){
+    obj.disabled = true;
+    
+    if(!flipped){
+        flipped = obj;
+    } else {
+        if(flipped.classList[0] == obj.classList[0]){
+            console.log(flipped);
+            console.log(obj);
             console.log("win");
+            flipped = "";
         } else {
             console.log("lose");
+            setTimeout(()=>{
+                flipped.disabled = false;
+                obj.disabled = false;
+                flipped = "";
+            }, 750)
         }
-        flipped = [];
     }
 }

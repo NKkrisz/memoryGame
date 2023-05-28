@@ -1,13 +1,20 @@
-@keyframes flip{
-    50%{
+/* @keyframes flip{
+    0%{
+        transform: rotate3d(0, 1, 0, 0deg);
+    }
+    100%{
         transform: rotate3d(0, 1, 0, 180deg);
     }
+} */
+
+.card:disabled{
+    transform: rotate3d(0, 1, 0, 0deg);
+    outline: none;
 }
 
-.card:focus{
-    animation-name: flip;
-    animation-duration: 0.75s;
-    outline: none;
+.card{
+    transition: all 0.75s ease-in-out;
+    transform: rotate3d(0, 1, 0, 180deg);
 }
 
 img {
