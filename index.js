@@ -51,6 +51,12 @@ function randomize(){
     let rnd;
     let randomizeList = [];
 
+    if(cardPairs > 6){
+        cardsContainer.classList.remove("overflow-hidden");
+    } else {
+        cardsContainer.classList.add("overflow-hidden");
+    }
+
     for(let i = 0; i < cardPairs; i++){
         while (true){
             rnd = Math.floor(Math.random() * Object.keys(cards).length);
