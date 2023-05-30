@@ -4,10 +4,39 @@
 }
 
 .card{
-    transition: all 0.75s ease-in-out;
+    transition: all 0.5s ease-in-out;
     transform: rotate3d(0, 1, 0, 180deg);
 }
 
 img {
     pointer-events: none;
+}
+
+@keyframes textShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.rainbowText {
+    background: linear-gradient(
+        to left,
+        red 14%,
+        orange 28%,
+        yellow 42%,
+        green 56%,
+        blue 70%,
+        indigo 84%,
+        violet 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    background-size: 500% auto;
+    animation: textShine 5s ease-in-out infinite alternate;
 }

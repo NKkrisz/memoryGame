@@ -29,16 +29,22 @@ function indicate(){
     inputRangeIndicator.value = inputRange.value;
 }
 
+const statusContainer = document.querySelector("#status");
+
 function complete(){
     if(completed === Object.keys(cardsContainer.children).length/2){
-        alert("You won, Good job!");
-        console.log("wrongGuesses: " + wrongGuesses);
-        wrongGuesses = 0;
+        statusContainer.innerHTML = "Status: You Won, Congrats!";
+        statusContainer.classList.add("rainbowText");
     }
 }
 
 function randomize(){
     cardsContainer.innerHTML = "";
+    wrongGuesses = 0;
+    completed = 0;
+    wrongGuessesContainer.innerHTML = `Wrong Guesses: ${wrongGuesses}`;
+    statusContainer.innerHTML = "Status: In Progress"
+    statusContainer.classList.remove("rainbowText");;
 
     let cardPairs = inputRange.value;
     let alreadyChosen = [];
@@ -71,13 +77,15 @@ function randomize(){
     alreadyChosen = [];
 }
 
-// randomize();
-
 let flipped = "";
 let wrongGuesses = 0;
 let completed = 0;
 
+const wrongGuessesContainer = document.querySelector("#wrongGuesses");
+
 function check(obj){
+    console.log(obj.disabled);
+
     obj.disabled = true;
     
     if(!flipped){
@@ -93,6 +101,7 @@ function check(obj){
                 flipped = "";
             }, 750)
             wrongGuesses++;
+            wrongGuessesContainer.innerHTML = `Wrong Guesses: ${wrongGuesses}`;
         }
     }
     complete();
